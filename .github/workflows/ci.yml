@@ -27,18 +27,23 @@ jobs:
       - name: Restore
         run: dotnet restore
 
-      - name: Build
+      - name: Build (Release)
         run: dotnet build --configuration Release --no-restore
 
-      - name: Run tests
-        run: dotnet test --no-build --verbosity normal
+      - name: Run tests (Release)
+        run: dotnet test --configuration Release --no-build --verbosity normal
 
-      - name: Publish artifact
+      - name: Publish artifact (project-specific)
         if: success()
-        run: dotnet publish -c Release -f net10.0 -o ./artifacts --no-build
+        run: |
+          dotnet publish ./src/ApiCepTestes_GitActions/ApiCepTestes_GitActions.csproj -c Release -f net10.0 -o ./artifacts/ApiCepTestes_GitActions
+          cd ./artifacts
+
+          zip -r ApiCepTestes_GitActions-artifact.zip ApiCepTestes_GitActions
+        shell: bash
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: viacep-published
-          path: ./artifacts
+          path: ./artifacts/ApiCepTestes_GitActions-artifact.zip
