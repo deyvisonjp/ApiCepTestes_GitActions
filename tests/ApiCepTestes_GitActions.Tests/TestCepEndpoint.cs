@@ -23,4 +23,12 @@ public class CepEndpointTests : IClassFixture<WebApplicationFactory<Program>>
         var content = await response.Content.ReadAsStringAsync();
         Assert.Contains("Praça", content, StringComparison.OrdinalIgnoreCase);
     }
+
+    [Fact]
+    public async Task InvalidCep_ReturnsBadRequest()
+    {
+        var client = _factory.CreateClient();
+        var response = await client.GetAsync("/cep/123");
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+    }
 }
