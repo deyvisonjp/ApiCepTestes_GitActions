@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/ApiCepTestes_GitActions/ApiCepTestes_GitActions.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/ApiCepTestes_GitActions.Tests/ApiCepTestes_GitActions.Tests.csproj" />
+  </Folder>
+</Solution>
